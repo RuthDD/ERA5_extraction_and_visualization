@@ -1,0 +1,69 @@
+---
+title: "Climatograph"
+output: html_document
+---
+
+```{r message=FALSE, warning=FALSE}
+library(lubridate)
+library(tidyverse)
+source("../R/functions.R") # load functions from functions.R file
+```
+
+```{r}
+# Read rds files by species
+Files <- list.files("../data/ClimateData", pattern = '*.rds', full.names = T)
+Files
+```
+
+```{r message=FALSE, warning=FALSE}
+# Climatograph by site
+# --------------------
+for(file in Files) {
+  data <- dateinfo2cols(file) # add columns using dateinfo2cols() in functions.R file
+  metdata <- data %>%
+    group_by(mon)  %>%
+    mutate(value_t2m = value_t2m - 273.15,  # Convert temperature to degrees Celsius (°C) 
+           value_tp = value_tp * 1000,   # Transform precipitation units from m to mm
+           meanT = mean(value_t2m, na.rm = T))
+  
+  clim <- ggplot(metdata,
+                 aes(x = DoY,
+                     y = value_tp, 
+                     col = "value_tp"))
+  clim <- clim + geom_col(color = "#33638DFF",
+                          fill = "#33638DFF",
+                          position = "dodge",
+                          alpha = 0.1)
+  clim <- clim + geom_line(aes(x = (mon/0.033)-15, # -15: position ≈ middle of the month
+                               y = meanT*2,
+                               group = long),
+                           color = "#B22222",
+                           size = 0.8)
+  clim <- clim + geom_point(aes(x = (mon/0.033)-15,
+                                y = meanT*2),
+                            size = 1.2,
+                            color = "#B22222")
+  clim <- clim + theme_light()
+  clim <- clim + theme(plot.margin = unit(c(0.2, 0.5, -0.2, 0.5), "cm"))
+  # Axis text
+  clim <- clim + scale_x_continuous(breaks = (metdata$mon/0.033)-15, labels = metdata$MonthLabel)
+  clim <- clim + scale_y_continuous("Precipitation (mm)", 
+                                    sec.axis = sec_axis(~./2, name = "Temperature (°C)")) 
+  clim <- clim + theme(axis.text.x = element_text(size = 10, angle = 60, vjust = 0.7))
+  clim <- clim + theme(axis.text.y = element_text(size = 10))
+  # Axis titles
+  clim <- clim + theme(
+    axis.title.y = element_text(size = 15),
+    axis.title.y.right = element_text(color = "#B22222", size = 15))
+  # Axis labels
+  clim <- clim + labs(x = " ")
+  # Plot title
+  sitename = gsub("_.*", "", gsub(".*/","", file))
+  clim <- clim + ggtitle(paste0("Climatograph for ", sitename))
+  clim <- clim + theme(plot.title = element_text(size = 18, face = "bold", hjust = 0.5))
+  print(clim)
+  }
+
+  
+
+```
