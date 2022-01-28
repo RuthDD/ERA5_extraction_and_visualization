@@ -5,6 +5,7 @@
 This repository shows how to request, download, process, and visualize local climate data from ERA5 database, using two localities at Catalonia (NE Spain) as an example.  
 
 <div style = "background-color:#839fc2">
+
 ## Repository structure  
 
 **I.** The first section shows how to make a data request in Copernicus website, using the **python** code that the website creates for you.  
@@ -12,6 +13,7 @@ This repository shows how to request, download, process, and visualize local cli
 **II.** The second part shows how to read the .nc files downloaded and extract data for points/locations using **R**. 
 
 **III.** The last section shows how to plot climate data using **climatographs** in **R**.
+
 </div>
 
 ## Steps for ERA5 data request (using the [CDS API](https://cds.climate.copernicus.eu/api-how-to))
@@ -41,11 +43,11 @@ The following steps summarize how to make the ERA5 data request (for a detailed 
   
     - For this example I selected **2m temperature** data from the Variable 'Temperature', and **Total precipitation** from the variable 'Wind, Pressure and Precipitation'.
     
-    ![](images/variable_request.png){width=100%}  
+    ![](images/variable_request.png) 
     - I also specified years from 2015 to 2020, all months and days, and time from 11 h to 13 h for the sub-region '43, 0, 41, 3'.
 
-    ![](images/time_request.png){width=100%}  
-    ![](images/subregion_request.png){width=100%}
+    ![](images/time_request.png)
+    ![](images/subregion_request.png)
     
   * Click on 'Show API request' buttom at the end of the page, and copy the code.  
   
@@ -65,9 +67,7 @@ The following steps summarize how to make the ERA5 data request (for a detailed 
   
     - If your data request includes several years and/or several variables, you could consider making one request per year/variable. The file [ERA5download_years.ipynb](https://github.com/REDD1326/ERA5_extraction_and_visualization/tree/main/vignettes/ERA5download_years.ipynb) shows how to modify the code from the API request to make a **request by year** and to print the status of the request.    
 
-<p align="center">    
-![](images/ERA5request.png){width=100%}
-</p>
+![](images/ERA5request.png)
 
 ## Data processing in R
 
