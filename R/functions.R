@@ -55,7 +55,7 @@ brick_extract <- function(ncfile, vars, long, lat) {
 
 # Function to generate new columns from date column -----------------------
 
-dateinfo2cols <- function(file) {
+dateinfo_cols <- function(file) {
   metdata <- file %>% 
     map_dfr(readRDS) %>%
     mutate(mon = lubridate::month(name),

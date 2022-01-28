@@ -1,11 +1,13 @@
 ---
 title: "Climatograph"
-output: html_document
+output:
+  pdf_document:
+    latex_engine: xelatex
 ---
 
 ```{r message=FALSE, warning=FALSE}
-library(lubridate)
 library(tidyverse)
+library(lubridate)
 source("../R/functions.R") # load functions from functions.R file
 ```
 
@@ -15,20 +17,20 @@ Files <- list.files("../data/ClimateData", pattern = '*.rds', full.names = T)
 Files
 ```
 
-```{r message=FALSE, warning=FALSE}
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 # Climatograph by site
 # --------------------
 for(file in Files) {
-  data <- dateinfo2cols(file) # add columns using dateinfo2cols() in functions.R file
+  data <- dateinfo_cols(file) # add columns using dateinfo_cols() in functions.R file
   metdata <- data %>%
     group_by(mon)  %>%
-    mutate(value_t2m = value_t2m - 273.15,  # Convert temperature to degrees Celsius (°C) 
-           value_tp = value_tp * 1000,   # Transform precipitation units from m to mm
+    mutate(value_t2m = (value_t2m - 273.15),  # Convert temperature to degrees Celsius (°C) 
+           value_tp = (value_tp * 1000),   # Transform precipitation units from m to mm
            meanT = mean(value_t2m, na.rm = T))
-  
+
   clim <- ggplot(metdata,
                  aes(x = DoY,
-                     y = value_tp, 
+                     y = value_tp,
                      col = "value_tp"))
   clim <- clim + geom_col(color = "#33638DFF",
                           fill = "#33638DFF",
@@ -47,8 +49,8 @@ for(file in Files) {
   clim <- clim + theme(plot.margin = unit(c(0.2, 0.5, -0.2, 0.5), "cm"))
   # Axis text
   clim <- clim + scale_x_continuous(breaks = (metdata$mon/0.033)-15, labels = metdata$MonthLabel)
-  clim <- clim + scale_y_continuous("Precipitation (mm)", 
-                                    sec.axis = sec_axis(~./2, name = "Temperature (°C)")) 
+  clim <- clim + scale_y_continuous("Precipitation (mm)",
+                                    sec.axis = sec_axis(~./2, name = "Temperature (°C)"))
   clim <- clim + theme(axis.text.x = element_text(size = 10, angle = 60, vjust = 0.7))
   clim <- clim + theme(axis.text.y = element_text(size = 10))
   # Axis titles
@@ -63,7 +65,4 @@ for(file in Files) {
   clim <- clim + theme(plot.title = element_text(size = 18, face = "bold", hjust = 0.5))
   print(clim)
   }
-
-  
-
 ```

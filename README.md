@@ -4,8 +4,6 @@
 
 This repository shows how to request, download, process, and visualize local climate data from ERA5 database, using two localities at Catalonia (NE Spain) as an example.  
 
-<div style = "background-color:#839fc2">
-
 ## Repository structure  
 
 **I.** The first section shows how to make a data request in Copernicus website, using the **python** code that the website creates for you.  
@@ -14,7 +12,6 @@ This repository shows how to request, download, process, and visualize local cli
 
 **III.** The last section shows how to plot climate data using **climatographs** in **R**.
 
-</div>
 
 ## Steps for ERA5 data request (using the [CDS API](https://cds.climate.copernicus.eu/api-how-to))
 
