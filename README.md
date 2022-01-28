@@ -80,5 +80,5 @@ The file [ERA5_extraction.R](https://github.com/REDD1326/ERA5_extraction_and_vis
 
 ## Data visualization
 
-In order to describe each location`s climate data I made a **Climatograph** by site (see the vignette [Climatograph](https://github.com/REDD1326/ERA5_extraction_and_visualization/blob/main/R/Climatograph.Rmd)).
+In order to describe each location`s climate data I made a **Climatograph** by site (see the vignette [Climatograph](https://github.com/REDD1326/ERA5_extraction_and_visualization/blob/main/vignettes/Climatograph.Rmd)).
 
