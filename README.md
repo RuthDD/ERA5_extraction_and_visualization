@@ -61,10 +61,10 @@ The following steps summarize how to make the ERA5 data request (for a detailed 
     ```
   
   * Paste the code from the API request in the jupyter notebook and run the [notebook](https://github.com/REDD1326/ERA5_extraction_and_visualization/tree/main/vignettes/ERA5download.ipynb). 
-  
-    - If your data request includes several years and/or several variables, you could consider making one request per year/variable. The file [ERA5download_years.ipynb](https://github.com/REDD1326/ERA5_extraction_and_visualization/tree/main/vignettes/ERA5download_years.ipynb) shows how to modify the code from the API request to make a **request by year** and to print the status of the request.    
 
 ![](images/ERA5request.png)
+
+> If your data request includes several years and/or several variables, you could consider making one request per year/variable. The file [ERA5download_years.ipynb](https://github.com/REDD1326/ERA5_extraction_and_visualization/tree/main/vignettes/ERA5download_years.ipynb) shows how to modify the code from the API request to make a **request by year** and to print the status of the request. 
 
 ## Data processing in R
 
